@@ -1,0 +1,28 @@
+[project]
+name = "invenio-rdm-domain-records"
+license = {file = "LICENSE"}
+version = "0.1"
+dependencies = [
+	     "invenio-rdm-records>=10.9.1,<11.0"
+	     ]
+	
+[[project.authors]]
+name = "Lee Benson"
+email = "lee.benson@imperial.ac.uk"
+
+[project.optional-dependencies]
+dev = ["pytest", "coverage",
+       "sphinx", "pip-tools", "ruff", "pylint"]
+
+[project.entry-points."invenio_base.api_apps"]
+invenio_rdm_domain_records = "invenio_rdm_domain_records:DomainInvenioRDMRecords"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.pytest.ini_options]
+testpaths = ["src/unittests/"]
