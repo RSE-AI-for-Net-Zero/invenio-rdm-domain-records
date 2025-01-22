@@ -17,6 +17,9 @@ dev = ["pytest", "coverage",
 [project.entry-points."invenio_base.api_apps"]
 invenio_rdm_domain_records = "invenio_rdm_domain_records:DomainInvenioRDMRecords"
 
+[project.entry-points."invenio_jsonschemas.schemas"]
+invenio_rdm_domain_records = "invenio_rdm_domain_records.records.jsonschemas"
+
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
