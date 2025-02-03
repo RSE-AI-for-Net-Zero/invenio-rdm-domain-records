@@ -20,6 +20,8 @@ from marshmallow_utils.fields import NestedAttribute
 from flask import Blueprint
 from flask_iiif import IIIF
 
+from .records.api import DomainRDMDraft, DomainRDMRecord
+
 class DomainMetadataSchema(MetadataSchema):
     domain_metadata = Dict()
 
@@ -30,12 +32,20 @@ class DomainRDMRecordServiceConfig(RDMRecordServiceConfig):
     schema = DomainRDMRecordSchema
 
 class DomainInvenioRDMRecords(InvenioRDMRecords):
+    '''
     blueprint = Blueprint(
         "invenio_rdm_records",
         __name__,
         template_folder="templates",
         static_folder="static",
     )
+    '''
+    def init_app(self, app):
+        # RDMRecordServiceConfig picks up record & draft api class via these two config keys
+        app.config["RDM_RECORD_CLS"] = DomainRDMRecord
+        app.config["RDM_DRAFT_CLS"] = DomainRDMDraft
+        
+        super(DomainInvenioRDMRecords, self).init_app(app)
 
     def service_configs(self, app):
         class ServiceConfigs:
@@ -51,4 +61,8 @@ class DomainInvenioRDMRecords(InvenioRDMRecords):
             record_requests = RDMRecordRequestsConfig.build(app)
 
         return ServiceConfigs
+
+   
+
+        
 
