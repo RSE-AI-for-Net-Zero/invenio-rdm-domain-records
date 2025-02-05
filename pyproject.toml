@@ -1,4 +1,4 @@
-[project]
+	[project]
 name = "invenio-rdm-domain-records"
 license = {file = "LICENSE"}
 version = "0.1"
@@ -22,6 +22,9 @@ invenio_rdm_domain_records = "invenio_rdm_domain_records:DomainInvenioRDMRecords
 
 [project.entry-points."invenio_jsonschemas.schemas"]
 invenio_rdm_domain_records = "invenio_rdm_domain_records.records.jsonschemas"
+
+[project.entry-points."invenio_search.mappings"]
+rdmdomainrecords = "invenio_rdm_domain_records.records.mappings"
 
 [build-system]
 requires = ["setuptools"]

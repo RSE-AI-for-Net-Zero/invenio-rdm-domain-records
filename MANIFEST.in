@@ -1,4 +1,5 @@
 graft src/invenio_rdm_domain_records/templates/
 graft src/invenio_rdm_domain_records/records/jsonschemas/
+graft src/invenio_rdm_domain_records/records/mappings/
 
 
