@@ -6,7 +6,7 @@ class DomainRDMDraft(RDMDraft):
     # Remember to update INDEXER_DEFAULT_INDEX in Invenio-App-RDM if you
     # update the JSONSchema and mappings to a new version.
     schema = ConstantField("$schema", "local://records/domain-record-v6.0.0.json")
-    index = IndexField("rdmdomainrecords-drafts-draft-v6.0.0", search_alias="rdmdomainrecords")
+    index = IndexField("rdmdomainrecords-drafts-draft-v6.0.0", search_alias="rdmdomainrecords-drafts")
 
 class DomainRDMRecord(RDMRecord):
     # Remember to update INDEXER_DEFAULT_INDEX in Invenio-App-RDM if you
