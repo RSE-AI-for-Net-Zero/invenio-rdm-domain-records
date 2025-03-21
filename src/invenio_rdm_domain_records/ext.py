@@ -75,7 +75,7 @@ def init_api(app):
 
     @app.errorhandler(ValidationError)
     def handle_jsonschema_validation_error(e):
-        return f"{e.message}", 422
+        return str(e), 422
     
         
 
