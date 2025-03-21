@@ -1,3 +1,4 @@
+import types
 from invenio_rdm_records import InvenioRDMRecords
 from invenio_rdm_records.services import (RDMRecordServiceConfig,
                                           RDMFileRecordServiceConfig,
@@ -18,7 +19,9 @@ from marshmallow.fields import Dict
 from marshmallow_utils.fields import NestedAttribute
 
 from flask import Blueprint
+import flask.json
 from flask_iiif import IIIF
+
 
 from .records.api import DomainRDMDraft, DomainRDMRecord
 
@@ -62,7 +65,17 @@ class DomainInvenioRDMRecords(InvenioRDMRecords):
 
         return ServiceConfigs
 
-   
 
+def api_finalize_app(app):
+    init_api(app)
+    
+
+def init_api(app):
+    from jsonschema.exceptions import ValidationError
+
+    @app.errorhandler(ValidationError)
+    def handle_jsonschema_validation_error(e):
+        return f"{e.message}", 422
+    
         
 
