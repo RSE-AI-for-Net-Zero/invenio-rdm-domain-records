@@ -12,7 +12,11 @@ email = "lee.benson@imperial.ac.uk"
 
 [project.optional-dependencies]
 dev = ["pytest", "coverage",
-       "sphinx", "pip-tools", "ruff", "pylint"]
+       "sphinx", "sphinx-rtd-theme",
+       "pip-tools", "ruff", "pylint",
+       "invenio-search[opensearch2]==2.4.1", #For autodoc to work
+       "invenio-app==1.5.1" #For autodoc to work
+]
 
 [project.entry-points."invenio_base.api_apps"]
 invenio_rdm_domain_records = "invenio_rdm_domain_records:DomainInvenioRDMRecords"

@@ -26,23 +26,31 @@ from flask_iiif import IIIF
 from .records.api import DomainRDMDraft, DomainRDMRecord
 
 class DomainMetadataSchema(MetadataSchema):
+    """
+    Adds an empty :code:`marshmallow.fields.Dict` to
+    :code:`invenio-rdm-records`'s existing metadata schema
+    """
     domain_metadata = Dict()
 
 class DomainRDMRecordSchema(RDMRecordSchema):
+    """
+    Overrides metadata class attribute of
+    :code:`invenio_rdm_records.services.schemas.RDMRecordSchema`
+    """
     metadata = NestedAttribute(DomainMetadataSchema)
 
 class DomainRDMRecordServiceConfig(RDMRecordServiceConfig):
+    """
+    Overrides schema class attribute of
+    :code:`invenio_rdm_records.services.RDMRecordServiceConfig`
+    """
+
     schema = DomainRDMRecordSchema
 
 class DomainInvenioRDMRecords(InvenioRDMRecords):
-    '''
-    blueprint = Blueprint(
-        "invenio_rdm_records",
-        __name__,
-        template_folder="templates",
-        static_folder="static",
-    )
-    '''
+    """
+    Sets draft and record API classes.  Sets :code:`RDMRecordService` config.
+    """
     def init_app(self, app):
         # RDMRecordServiceConfig picks up record & draft api class via these two config keys
         app.config["RDM_RECORD_CLS"] = DomainRDMRecord
@@ -67,10 +75,21 @@ class DomainInvenioRDMRecords(InvenioRDMRecords):
 
 
 def api_finalize_app(app):
+    """
+    Registered in :code:`invenio_base.api_finalize_app` entry
+    point group.  Called in final stage of app loading.
+    """
     init_api(app)
     
 
 def init_api(app):
+    """
+    Registers an error handler for Invenio REST API application
+    :code:`jsonschema.exceptions.ValidationError`
+
+    Handler returns a ``422`` response with details of validation 
+    error to the client.
+    """
     from jsonschema.exceptions import ValidationError
 
     @app.errorhandler(ValidationError)
